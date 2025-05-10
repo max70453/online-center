@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Центр теплоснабжения - Обработка обращений</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/requestProcessing.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-main">
+            <div class="logo-wrap">
+                <div class="logo-pic">
+                    <img src="/img/logo.png" alt="logotype">
+                </div>
+                <div class="logo">Центр теплоснабжения</div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="financialDivision.html">Финансы</a>
+                <!-- <a href="analytics.html">Аналитика</a> -->
+                <!-- <a href="technicalSupport.html">Поддержка</a> -->
+                <a href="requestProcessing.html" class="active">Запросы</a>
+                <a href="account.html">Кабинет</a>
+            </div>
+            <div class="auth-buttons">
+                <button id="loginBtn">Войти</button>
+                <button id="registerBtn">Регистрация</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="request-processing">
+        <div class="container" style="margin-top: 50px;">
+            <section class="request-form-section">
+                <h2>Отправить обращение</h2>
+                <form id="requestForm" class="request-form">
+                    <div class="form-group">
+                        <label for="requestType">Тип обращения</label>
+                        <select id="requestType" required>
+                            <option value="technical">Техническая проблема</option>
+                            <option value="billing">Вопросы по оплате</option>
+                            <option value="service">Качество обслуживания</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="requestText">Текст обращения</label>
+                        <textarea id="requestText" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMethod">Предпочтительный способ связи</label>
+                        <select id="contactMethod" required>
+                            <option value="email">Email</option>
+                            <option value="phone">Телефон</option>
+                            <option value="messenger">Мессенджер</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactInfo">Контактная информация</label>
+                        <input type="text" id="contactInfo" required>
+                    </div>
+                    <button type="submit">Отправить обращение</button>
+                </form>
+            </section>
+
+            <section class="requests-history">
+                <h2>История обращений</h2>
+                <div id="requestsList" class="requests-list"></div>
+            </section>
+
+            <section class="chat-bot">
+                <h2>Виртуальный помощник</h2>
+                <div class="chat-container">
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Введите ваш вопрос...">
+                        <button id="sendMessage">Отправить</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Контакты</h3>
+                <p>Телефон: +7(856) 304-53-31</p>
+                <p>Email: donbassteploenergo@mail.ru</p>
+            </div>
+            <div class="working-hours">
+                <h3>Режим работы</h3>
+                <p>Пн-Пт: 9:00 - 18:00</p>
+                <p>Сб-Вс: выходной</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/requestProcessing.js"></script>
+</body>
+</html>

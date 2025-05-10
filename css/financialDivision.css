@@ -1,0 +1,111 @@
+.financial-division {
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.payment-section,
+.bills-section,
+.debt-section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.payment-dashboard,
+.bills-dashboard,
+.debt-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.payment-form {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.history-list,
+.bills-list,
+.debt-info {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+    min-height: 200px;
+}
+
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+h2 {
+    color: #343a40;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .payment-dashboard,
+    .bills-dashboard,
+    .debt-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 0 0.5rem;
+    }
+
+    .payment-section,
+    .bills-section,
+    .debt-section {
+        padding: 1.5rem;
+    }
+}

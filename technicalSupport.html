@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Центр теплоснабжения - Обработка обращений</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/technicalSupport.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-main">
+            <div class="logo-wrap">
+                <div class="logo-pic">
+                    <img src="/img/logo.png" alt="logotype">
+                </div>
+                <div class="logo">Центр теплоснабжения</div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <!-- <a href="financialDivision.html" >Финансы</a> -->
+                <a href="analytics.html">Аналитика</a>
+                <a href="technicalSupport.html" class="active">Поддержка</a>
+                <!-- <a href="requestProcessing.html">Запросы</a> -->
+                <a href="account.html">Кабинет</a>
+            </div>
+            <div class="auth-buttons">
+                <button id="loginBtn">Войти</button>
+                <button id="registerBtn">Регистрация</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="technical-support" style="margin-top: 160px;">
+        <div class="container">
+            <section class="monitoring-section">
+                <h2>Мониторинг показаний</h2>
+                <div class="monitoring-dashboard">
+                    <div class="meters-panel">
+                        <h3>Приборы учета</h3>
+                        <div id="metersData" class="meters-data">
+                            <!-- Данные приборов учета будут добавлены через JavaScript -->
+                        </div>
+                    </div>
+                    <div class="charts-panel">
+                        <h3>Графики потребления</h3>
+                        <div id="consumptionCharts" class="consumption-charts">
+                            <div class="chart-container">
+                                <canvas id="dailyConsumptionChart"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="monthlyConsumptionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alerts-section">
+                <h2>Аварийные ситуации</h2>
+                <div class="alerts-dashboard">
+                    <div class="alerts-map" id="emergencyMap">
+                        <!-- Карта будет инициализирована через JavaScript -->
+                    </div>
+                    <div class="alerts-list">
+                        <h3>Активные уведомления</h3>
+                        <div id="activeAlerts" class="active-alerts">
+                            <div class="alert-item">
+                                <div class="alert-type">Прорыв трубопровода</div>
+                                <div class="alert-location">ул. Ленина, 45</div>
+                                <div class="alert-time">Обнаружено: 15.12.2023 14:30</div>
+                                <span class="alert-status status-in-progress">В работе</span>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-type">Отсутствие теплоносителя</div>
+                                <div class="alert-location">ул. Гагарина, 12</div>
+                                <div class="alert-time">Обнаружено: 15.12.2023 13:15</div>
+                                <span class="alert-status status-new">Новое</span>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-type">Низкое давление</div>
+                                <div class="alert-location">пр. Мира, 78</div>
+                                <div class="alert-time">Обнаружено: 15.12.2023 10:45</div>
+                                <span class="alert-status status-resolved">Устранено</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="diagnostics-section">
+                <h2>Удаленная диагностика</h2>
+                <div class="diagnostics-dashboard">
+                    <div class="equipment-status">
+                        <h3>Состояние оборудования</h3>
+                        <div id="equipmentStatus" class="equipment-list">
+                            <!-- Статус оборудования будет добавлен через JavaScript -->
+                        </div>
+                    </div>
+                    <div class="communication-lines">
+                        <h3>Состояние коммуникационных линий</h3>
+                        <div id="communicationStatus" class="communication-status">
+                            <!-- Статус коммуникаций будет добавлен через JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3 style="color: #fff;">Контакты</h3>
+                <p>Телефон: +7(856) 304-53-31</p>
+                <p>Email: donbassteploenergo@mail.ru</p>
+            </div>
+            <div class="working-hours">
+                <h3 style="color: #fff;">Режим работы</h3>
+                <p>Пн-Пт: 9:00 - 18:00</p>
+                <p>Сб-Вс: выходной</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/technicalSupport.js"></script>
+</body>
+</html>
