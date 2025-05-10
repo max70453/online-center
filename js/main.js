@@ -167,7 +167,7 @@ document.getElementById('requestForm').addEventListener('submit', (e) => {
 });
 
 // Инициализация страницы
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     loadTariffs();
     loadInfo();
 });
