@@ -11,18 +11,18 @@
     <header class="header">
         <nav class="nav-main">
             <div class="logo-wrap">
-                <div class="logo-pic">
+                <a href="index.html" class="logo-pic">
                     <img src="img/logo.png" alt="logotype">
-                </div>
+                </a>
                 <div class="logo">Центр теплоснабжения</div>
             </div>
             <div class="nav-links">
-                <a href="index.html">Главная</a>
+                <!-- <a href="index.html">Главная</a> -->
                 <!-- <a href="financialDivision.html" >Финансы</a> -->
-                <a href="analytics.html">Аналитика</a>
-                <a href="technicalSupport.html" class="active">Поддержка</a>
+                <!-- <a href="analytics.html">Аналитика</a> -->
+                <!-- <a href="technicalSupport.html" class="active">Поддержка</a> -->
                 <!-- <a href="requestProcessing.html">Запросы</a> -->
-                <a href="account.html">Кабинет</a>
+                <!-- <a href="account.html">Кабинет</a> -->
             </div>
             <div class="auth-buttons">
                 <button id="loginBtn">Войти</button>
@@ -38,24 +38,116 @@
 
     <main class="technical-support" style="margin-top: 160px;">
         <div class="container">
-            <section class="monitoring-section">
-                <h2>Мониторинг показаний</h2>
-                <div class="monitoring-dashboard">
-                    <div class="meters-panel">
-                        <h3>Приборы учета</h3>
-                        <div id="metersData" class="meters-data">
-                            <!-- Данные приборов учета будут добавлены через JavaScript -->
+            <section class="requests-section">
+                <h2>Управление заявками</h2>
+                <div class="filters-panel">
+                    <div class="filter-group">
+                        <label for="statusFilter">Статус:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">Все статусы</option>
+                            <option value="new">Новые</option>
+                            <option value="in-progress">В работе</option>
+                            <option value="resolved">Выполненные</option>
+                            <option value="cancelled">Отмененные</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="typeFilter">Тип заявки:</label>
+                        <select id="typeFilter" class="filter-select">
+                            <option value="all">Все типы</option>
+                            <option value="emergency">Аварийные</option>
+                            <option value="maintenance">Плановые работы</option>
+                            <option value="connection">Подключение</option>
+                            <option value="consultation">Консультация</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="dateFilter">Дата создания:</label>
+                        <input type="date" id="dateFilter" class="filter-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="addressFilter">Адрес:</label>
+                        <input type="text" id="addressFilter" class="filter-text" placeholder="Введите адрес">
+                    </div>
+                    <button id="applyFilters" class="filter-button">Применить фильтры</button>
+                    <button id="resetFilters" class="filter-button reset">Сбросить</button>
+                </div>
+                
+                <div class="requests-table-container">
+                    <table class="requests-table" id="requestsTable">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Дата создания</th>
+                                <th>Тип</th>
+                                <th>Адрес</th>
+                                <th>Статус</th>
+                                <th>Бригада</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут добавлены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Модальное окно для подробной информации -->
+                <div id="requestDetailsModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Подробная информация о заявке</h3>
+                        <div id="requestDetails" class="request-details">
+                            <!-- Детали заявки будут добавлены через JavaScript -->
                         </div>
                     </div>
-                    <div class="charts-panel">
-                        <h3>Графики потребления</h3>
-                        <div id="consumptionCharts" class="consumption-charts">
-                            <div class="chart-container">
-                                <canvas id="dailyConsumptionChart"></canvas>
+                </div>
+                
+                <!-- Модальное окно для изменения статуса -->
+                <div id="changeStatusModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Изменение статуса заявки</h3>
+                        <div class="status-form">
+                            <div class="form-group">
+                                <label for="newStatus">Новый статус:</label>
+                                <select id="newStatus" class="form-select">
+                                    <option value="new">Новая</option>
+                                    <option value="in-progress">В работе</option>
+                                    <option value="resolved">Выполнена</option>
+                                    <option value="cancelled">Отменена</option>
+                                </select>
                             </div>
-                            <div class="chart-container">
-                                <canvas id="monthlyConsumptionChart"></canvas>
+                            <div class="form-group">
+                                <label for="statusComment">Комментарий:</label>
+                                <textarea id="statusComment" class="form-textarea" placeholder="Введите комментарий к изменению статуса"></textarea>
                             </div>
+                            <button id="saveStatus" class="form-button">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Модальное окно для назначения бригады -->
+                <div id="assignTeamModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3>Назначение бригады</h3>
+                        <div class="team-form">
+                            <div class="form-group">
+                                <label for="teamSelect">Выберите бригаду:</label>
+                                <select id="teamSelect" class="form-select">
+                                    <option value="">-- Выберите бригаду --</option>
+                                    <option value="team1">Бригада №1</option>
+                                    <option value="team2">Бригада №2</option>
+                                    <option value="team3">Бригада №3</option>
+                                    <option value="team4">Бригада №4</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="teamComment">Комментарий:</label>
+                                <textarea id="teamComment" class="form-textarea" placeholder="Введите комментарий к назначению бригады"></textarea>
+                            </div>
+                            <button id="saveTeam" class="form-button">Сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -110,6 +202,8 @@
                     </div>
                 </div>
             </section>
+
+            
         </div>
     </main>
 

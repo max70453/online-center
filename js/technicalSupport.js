@@ -200,8 +200,508 @@ function getPresetByStatus(status) {
     }
 }
 
+// Тестовые данные для заявок
+const requestsData = [
+    {
+        id: 1,
+        date: '2024-01-10',
+        type: 'emergency',
+        typeName: 'Аварийная',
+        address: 'ул. Ленина, 45',
+        status: 'in-progress',
+        statusName: 'В работе',
+        team: 'team1',
+        teamName: 'Бригада №1',
+        description: 'Прорыв трубопровода на участке между домами 45 и 47. Требуется срочный ремонт.',
+        contactName: 'Иванов И.И.',
+        contactPhone: '+7 (900) 123-45-67',
+        priority: 'high',
+        createdBy: 'Диспетчер',
+        comments: [
+            { date: '2024-01-10 10:30', author: 'Диспетчер', text: 'Заявка создана на основании звонка жильца.' },
+            { date: '2024-01-10 11:15', author: 'Бригада №1', text: 'Выехали на место.' }
+        ]
+    },
+    {
+        id: 2,
+        date: '2024-01-12',
+        type: 'maintenance',
+        typeName: 'Плановые работы',
+        address: 'пр. Мира, 78',
+        status: 'new',
+        statusName: 'Новая',
+        team: '',
+        teamName: 'Не назначена',
+        description: 'Плановая проверка и обслуживание теплового узла.',
+        contactName: 'Петров П.П.',
+        contactPhone: '+7 (900) 987-65-43',
+        priority: 'medium',
+        createdBy: 'Инженер',
+        comments: [
+            { date: '2024-01-12 09:00', author: 'Инженер', text: 'Заявка создана согласно графику плановых работ.' }
+        ]
+    },
+    {
+        id: 3,
+        date: '2024-01-08',
+        type: 'connection',
+        typeName: 'Подключение',
+        address: 'ул. Гагарина, 12',
+        status: 'resolved',
+        statusName: 'Выполнена',
+        team: 'team2',
+        teamName: 'Бригада №2',
+        description: 'Подключение нового абонента к системе теплоснабжения.',
+        contactName: 'Сидоров С.С.',
+        contactPhone: '+7 (900) 111-22-33',
+        priority: 'low',
+        createdBy: 'Менеджер',
+        comments: [
+            { date: '2024-01-08 14:00', author: 'Менеджер', text: 'Заявка создана на основании договора №123.' },
+            { date: '2024-01-09 10:30', author: 'Бригада №2', text: 'Работы по подключению выполнены.' },
+            { date: '2024-01-09 15:45', author: 'Инженер', text: 'Проверка выполнена. Подключение успешно.' }
+        ]
+    },
+    {
+        id: 4,
+        date: '2024-01-15',
+        type: 'consultation',
+        typeName: 'Консультация',
+        address: 'ул. Строителей, 5',
+        status: 'cancelled',
+        statusName: 'Отменена',
+        team: '',
+        teamName: 'Не назначена',
+        description: 'Консультация по вопросам оплаты и тарифам.',
+        contactName: 'Кузнецова А.В.',
+        contactPhone: '+7 (900) 444-55-66',
+        priority: 'low',
+        createdBy: 'Оператор',
+        comments: [
+            { date: '2024-01-15 11:20', author: 'Оператор', text: 'Заявка создана на основании обращения абонента.' },
+            { date: '2024-01-15 12:30', author: 'Оператор', text: 'Абонент отменил заявку. Вопрос решен по телефону.' }
+        ]
+    },
+    {
+        id: 5,
+        date: '2024-01-16',
+        type: 'emergency',
+        typeName: 'Аварийная',
+        address: 'ул. Пушкина, 22',
+        status: 'new',
+        statusName: 'Новая',
+        team: '',
+        teamName: 'Не назначена',
+        description: 'Отсутствие отопления в квартирах с 1 по 36.',
+        contactName: 'Николаев Н.Н.',
+        contactPhone: '+7 (900) 777-88-99',
+        priority: 'high',
+        createdBy: 'Диспетчер',
+        comments: [
+            { date: '2024-01-16 08:15', author: 'Диспетчер', text: 'Заявка создана на основании множественных звонков жильцов.' }
+        ]
+    }
+];
+
+// Функция для отображения заявок в таблице
+function displayRequests(requests = requestsData) {
+    const tableBody = document.querySelector('#requestsTable tbody');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+
+    if (requests.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td colspan="7" class="no-data">Нет данных для отображения</td>';
+        tableBody.appendChild(row);
+        return;
+    }
+
+    requests.forEach(request => {
+        const row = document.createElement('tr');
+        row.dataset.requestId = request.id;
+        
+        row.innerHTML = `
+            <td>${request.id}</td>
+            <td>${formatDate(request.date)}</td>
+            <td>${request.typeName}</td>
+            <td>${request.address}</td>
+            <td><span class="status-badge status-${request.status}">${request.statusName}</span></td>
+            <td>${request.teamName}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="action-button view-button" data-action="view" data-id="${request.id}">Подробно</button>
+                    <button class="action-button status-button" data-action="status" data-id="${request.id}">Статус</button>
+                    <button class="action-button team-button" data-action="team" data-id="${request.id}">Бригада</button>
+                </div>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+
+    // Добавляем обработчики событий для кнопок действий
+    addActionButtonsEventListeners();
+}
+
+// Форматирование даты
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU');
+}
+
+// Добавление обработчиков событий для кнопок действий
+function addActionButtonsEventListeners() {
+    const actionButtons = document.querySelectorAll('.action-button');
+    
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.dataset.action;
+            const requestId = parseInt(this.dataset.id);
+            const request = requestsData.find(req => req.id === requestId);
+            
+            if (!request) return;
+            
+            switch(action) {
+                case 'view':
+                    showRequestDetails(request);
+                    break;
+                case 'status':
+                    showChangeStatusModal(request);
+                    break;
+                case 'team':
+                    showAssignTeamModal(request);
+                    break;
+            }
+        });
+    });
+}
+
+// Отображение подробной информации о заявке
+function showRequestDetails(request) {
+    const detailsContainer = document.getElementById('requestDetails');
+    const modal = document.getElementById('requestDetailsModal');
+    
+    if (!detailsContainer || !modal) return;
+    
+    detailsContainer.innerHTML = `
+        <div class="detail-group">
+            <div class="detail-label">Номер заявки:</div>
+            <div class="detail-value">${request.id}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Дата создания:</div>
+            <div class="detail-value">${formatDate(request.date)}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Тип заявки:</div>
+            <div class="detail-value">${request.typeName}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Адрес:</div>
+            <div class="detail-value">${request.address}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Статус:</div>
+            <div class="detail-value"><span class="status-badge status-${request.status}">${request.statusName}</span></div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Бригада:</div>
+            <div class="detail-value">${request.teamName}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Описание:</div>
+            <div class="detail-value">${request.description}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Контактное лицо:</div>
+            <div class="detail-value">${request.contactName}, ${request.contactPhone}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Приоритет:</div>
+            <div class="detail-value">${getPriorityName(request.priority)}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Создана:</div>
+            <div class="detail-value">${request.createdBy}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">История комментариев:</div>
+            <div class="detail-value comments-history">
+                ${request.comments.map(comment => `
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-date">${comment.date}</span>
+                            <span class="comment-author">${comment.author}</span>
+                        </div>
+                        <div class="comment-text">${comment.text}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+// Получение названия приоритета
+function getPriorityName(priority) {
+    switch(priority) {
+        case 'high': return 'Высокий';
+        case 'medium': return 'Средний';
+        case 'low': return 'Низкий';
+        default: return 'Не указан';
+    }
+}
+
+// Отображение модального окна для изменения статуса
+function showChangeStatusModal(request) {
+    const modal = document.getElementById('changeStatusModal');
+    const statusSelect = document.getElementById('newStatus');
+    const saveButton = document.getElementById('saveStatus');
+    
+    if (!modal || !statusSelect || !saveButton) return;
+    
+    // Устанавливаем текущий статус
+    statusSelect.value = request.status;
+    
+    // Очищаем поле комментария
+    document.getElementById('statusComment').value = '';
+    
+    // Обработчик для кнопки сохранения
+    const saveHandler = function() {
+        const newStatus = statusSelect.value;
+        const comment = document.getElementById('statusComment').value.trim();
+        
+        if (newStatus === request.status && comment === '') {
+            alert('Статус не изменен или не добавлен комментарий');
+            return;
+        }
+        
+        // Обновляем статус заявки
+        const requestIndex = requestsData.findIndex(req => req.id === request.id);
+        if (requestIndex !== -1) {
+            // Обновляем статус
+            requestsData[requestIndex].status = newStatus;
+            requestsData[requestIndex].statusName = getStatusName(newStatus);
+            
+            // Добавляем комментарий, если он есть
+            if (comment) {
+                const now = new Date();
+                const dateString = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'});
+                
+                requestsData[requestIndex].comments.push({
+                    date: dateString,
+                    author: 'Оператор',
+                    text: `Изменен статус на "${getStatusName(newStatus)}". ${comment}`
+                });
+            }
+            
+            // Обновляем отображение заявок
+            applyFilters();
+            
+            // Закрываем модальное окно
+            modal.style.display = 'none';
+            
+            // Удаляем обработчик события
+            saveButton.removeEventListener('click', saveHandler);
+        }
+    };
+    
+    // Добавляем обработчик события для кнопки сохранения
+    saveButton.addEventListener('click', saveHandler);
+    
+    // Отображаем модальное окно
+    modal.style.display = 'block';
+}
+
+// Получение названия статуса
+function getStatusName(status) {
+    switch(status) {
+        case 'new': return 'Новая';
+        case 'in-progress': return 'В работе';
+        case 'resolved': return 'Выполнена';
+        case 'cancelled': return 'Отменена';
+        default: return 'Неизвестно';
+    }
+}
+
+// Отображение модального окна для назначения бригады
+function showAssignTeamModal(request) {
+    const modal = document.getElementById('assignTeamModal');
+    const teamSelect = document.getElementById('teamSelect');
+    const saveButton = document.getElementById('saveTeam');
+    
+    if (!modal || !teamSelect || !saveButton) return;
+    
+    // Устанавливаем текущую бригаду
+    teamSelect.value = request.team;
+    
+    // Очищаем поле комментария
+    document.getElementById('teamComment').value = '';
+    
+    // Обработчик для кнопки сохранения
+    const saveHandler = function() {
+        const newTeam = teamSelect.value;
+        const comment = document.getElementById('teamComment').value.trim();
+        
+        if (newTeam === request.team && comment === '') {
+            alert('Бригада не изменена или не добавлен комментарий');
+            return;
+        }
+        
+        // Обновляем бригаду заявки
+        const requestIndex = requestsData.findIndex(req => req.id === request.id);
+        if (requestIndex !== -1) {
+            // Обновляем бригаду
+            requestsData[requestIndex].team = newTeam;
+            requestsData[requestIndex].teamName = newTeam ? getTeamName(newTeam) : 'Не назначена';
+            
+            // Если назначена бригада и статус "Новая", меняем на "В работе"
+            if (newTeam && requestsData[requestIndex].status === 'new') {
+                requestsData[requestIndex].status = 'in-progress';
+                requestsData[requestIndex].statusName = 'В работе';
+            }
+            
+            // Добавляем комментарий, если он есть
+            if (comment || newTeam !== request.team) {
+                const now = new Date();
+                const dateString = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'});
+                
+                let commentText = '';
+                if (newTeam) {
+                    commentText = `Назначена ${getTeamName(newTeam)}. `;
+                } else {
+                    commentText = 'Бригада снята с заявки. ';
+                }
+                
+                if (comment) {
+                    commentText += comment;
+                }
+                
+                requestsData[requestIndex].comments.push({
+                    date: dateString,
+                    author: 'Оператор',
+                    text: commentText
+                });
+            }
+            
+            // Обновляем отображение заявок
+            applyFilters();
+            
+            // Закрываем модальное окно
+            modal.style.display = 'none';
+            
+            // Удаляем обработчик события
+            saveButton.removeEventListener('click', saveHandler);
+        }
+    };
+    
+    // Добавляем обработчик события для кнопки сохранения
+    saveButton.addEventListener('click', saveHandler);
+    
+    // Отображаем модальное окно
+    modal.style.display = 'block';
+}
+
+// Получение названия бригады
+function getTeamName(team) {
+    switch(team) {
+        case 'team1': return 'Бригада №1';
+        case 'team2': return 'Бригада №2';
+        case 'team3': return 'Бригада №3';
+        case 'team4': return 'Бригада №4';
+        default: return 'Неизвестная бригада';
+    }
+}
+
+// Применение фильтров к заявкам
+function applyFilters() {
+    const statusFilter = document.getElementById('statusFilter').value;
+    const typeFilter = document.getElementById('typeFilter').value;
+    const dateFilter = document.getElementById('dateFilter').value;
+    const addressFilter = document.getElementById('addressFilter').value.toLowerCase();
+    
+    let filteredRequests = [...requestsData];
+    
+    // Фильтр по статусу
+    if (statusFilter !== 'all') {
+        filteredRequests = filteredRequests.filter(request => request.status === statusFilter);
+    }
+    
+    // Фильтр по типу
+    if (typeFilter !== 'all') {
+        filteredRequests = filteredRequests.filter(request => request.type === typeFilter);
+    }
+    
+    // Фильтр по дате
+    if (dateFilter) {
+        filteredRequests = filteredRequests.filter(request => request.date === dateFilter);
+    }
+    
+    // Фильтр по адресу
+    if (addressFilter) {
+        filteredRequests = filteredRequests.filter(request => 
+            request.address.toLowerCase().includes(addressFilter)
+        );
+    }
+    
+    // Отображаем отфильтрованные заявки
+    displayRequests(filteredRequests);
+}
+
+// Инициализация обработчиков событий для фильтров и модальных окон
+function initRequestsSection() {
+    // Обработчики для фильтров
+    const applyFiltersButton = document.getElementById('applyFilters');
+    const resetFiltersButton = document.getElementById('resetFilters');
+    
+    if (applyFiltersButton) {
+        applyFiltersButton.addEventListener('click', applyFilters);
+    }
+    
+    if (resetFiltersButton) {
+        resetFiltersButton.addEventListener('click', function() {
+            // Сбрасываем значения фильтров
+            document.getElementById('statusFilter').value = 'all';
+            document.getElementById('typeFilter').value = 'all';
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('addressFilter').value = '';
+            
+            // Применяем фильтры (показываем все заявки)
+            applyFilters();
+        });
+    }
+    
+    // Обработчики для закрытия модальных окон
+    const closeButtons = document.querySelectorAll('.close-modal');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+    
+    // Закрытие модального окна при клике вне его содержимого
+    window.addEventListener('click', function(event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+    
+    // Отображаем заявки
+    displayRequests();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация отображения данных приборов учета
+    // Инициализация секции заявок
+    initRequestsSection();
     displayMetersData();
     // Инициализация карты
     initEmergencyMap();
