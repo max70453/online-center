@@ -1,8 +1,6 @@
 // Инициализация графиков при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     initializeCharts();
-    initializeNetworkMap();
-    loadRecommendations();
     setupEventListeners();
 });
 
@@ -34,80 +32,27 @@ function initializeCharts() {
     });
 
     // График эффективности
-    const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
-    new Chart(efficiencyCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Участок 1', 'Участок 2', 'Участок 3', 'Участок 4', 'Участок 5'],
-            datasets: [{
-                label: 'Эффективность использования (%)',
-                data: [85, 92, 78, 95, 88],
-                backgroundColor: '#2ecc71'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Эффективность по участкам'
-                }
-            }
-        }
-    });
-}
-
-// Инициализация карты сети
-function initializeNetworkMap() {
-    const inefficientSegments = [
-        { id: 1, name: 'Участок А', efficiency: 65 },
-        { id: 2, name: 'Участок В', efficiency: 72 },
-        { id: 3, name: 'Участок С', efficiency: 68 }
-    ];
-
-    const listContainer = document.getElementById('inefficientList');
-    inefficientSegments.forEach(segment => {
-        const segmentElement = document.createElement('div');
-        segmentElement.className = 'segment-item';
-        segmentElement.innerHTML = `
-            <h5>${segment.name}</h5>
-            <p>Эффективность: ${segment.efficiency}%</p>
-            <p>Рекомендация: Требуется оптимизация</p>
-        `;
-        listContainer.appendChild(segmentElement);
-    });
-}
-
-// Загрузка рекомендаций
-function loadRecommendations() {
-    const costRecommendations = [
-        'Оптимизация режимов работы оборудования',
-        'Внедрение энергосберегающих технологий',
-        'Модернизация устаревшего оборудования'
-    ];
-
-    const efficiencyRecommendations = [
-        'Установка датчиков потребления',
-        'Автоматизация процессов управления',
-        'Регулярное техническое обслуживание'
-    ];
-
-    displayRecommendations('costRecommendations', costRecommendations);
-    displayRecommendations('efficiencyRecommendations', efficiencyRecommendations);
-}
-
-// Отображение рекомендаций
-function displayRecommendations(containerId, recommendations) {
-    const container = document.getElementById(containerId);
-    recommendations.forEach(recommendation => {
-        const recElement = document.createElement('div');
-        recElement.className = 'recommendation-item';
-        recElement.innerHTML = `
-            <span class="recommendation-icon">✓</span>
-            <p>${recommendation}</p>
-        `;
-        container.appendChild(recElement);
-    });
+    // const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
+    // new Chart(efficiencyCtx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['Участок 1', 'Участок 2', 'Участок 3', 'Участок 4', 'Участок 5'],
+    //         datasets: [{
+    //             label: 'Эффективность использования (%)',
+    //             data: [85, 92, 78, 95, 88],
+    //             backgroundColor: '#2ecc71'
+    //         }]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         plugins: {
+    //             title: {
+    //                 display: true,
+    //                 text: 'Эффективность по участкам'
+    //             }
+    //         }
+    //     }
+    // });
 }
 
 // Настройка обработчиков событий

@@ -53,8 +53,8 @@ function simulateAuth(email) {
         accountNumber: '1234567890',
         balance: 5000,
         payments: [
-            { date: '2024-01-15', amount: 2000, description: 'Оплата за отопление' },
-            { date: '2023-12-15', amount: 2000, description: 'Оплата за отопление' }
+            { date: '2025-01-15', amount: 2000, description: 'Оплата за отопление' },
+            { date: '2025-02-15', amount: 2000, description: 'Оплата за отопление' }
         ]
     };
 

@@ -151,6 +151,29 @@ h3 {
     background: #27ae60;
 }
 
+/* Стили для секции анализа потребления */
+.consumption-analysis {
+    grid-column: 1 / -1; /* Растягивает секцию на всю ширину grid-контейнера */
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.analysis-dashboard {
+    width: 100%;
+}
+
+.consumption-charts {
+    width: 100%;
+}
+
+.chart-container {
+    width: 100%;
+    padding: 1rem;
+}
+
 /* Адаптивный дизайн */
 @media (max-width: 768px) {
     .account-page {

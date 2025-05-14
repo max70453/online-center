@@ -17,14 +17,6 @@
                 </a>
                 <div class="logo">Центр теплоснабжения</div>
             </div>
-            <div class="nav-links">
-                <!-- <a href="index.html">Главная</a> -->
-                <a href="financialDivision.html" class="active">Финансы</a>
-                <!-- <a href="analytics.html">Аналитика</a> -->
-                <!-- <a href="technicalSupport.html">Поддержка</a> -->
-                <a href="requestProcessing.html">Запросы</a>
-                <!-- <a href="account.html">Кабинет</a> -->
-            </div>
             <div class="auth-buttons">
                 <button id="loginBtn">Войти</button>
                 <button id="registerBtn">Регистрация</button>
@@ -71,6 +63,7 @@
                     <option value="repair">Ремонтные работы</option>
                     <option value="verification">Поверка приборов учета</option>
                     <option value="replacement">Замена оборудования</option>
+                    <option value="other">Другое</option>
                 </select>
                 <input type="text" id="requestAddress" placeholder="Адрес" required>
                 <textarea id="requestDescription" placeholder="Описание проблемы или необходимых работ" required></textarea>
@@ -86,6 +79,18 @@
                 <h3>История заявок</h3>
                 <div id="requestsHistory" class="history-list">
                     <!-- История заявок будет добавлена динамически -->
+                </div>
+            </div>
+        </section>
+
+        <section class="consumption-analysis" style="margin-top: 50px;">
+            <h2>Анализ потребления ресурсов</h2>
+            <div class="analysis-dashboard">
+                <div class="consumption-charts">
+                    <div class="chart-container">
+                        <h3>Динамика потребления</h3>
+                        <canvas class="col-12" id="consumptionTrendChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
@@ -109,6 +114,8 @@
     <script src="js/main.js"></script>
     <script src="js/tariffs.js"></script>
     <script src="js/account.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/mobile-menu.js"></script>
 </body>
 </html>

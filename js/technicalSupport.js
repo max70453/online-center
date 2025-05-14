@@ -4,7 +4,7 @@ const metersData = [
         id: 'M001',
         location: 'ул. Ленина, 15',
         currentReading: '45.7',
-        lastUpdate: '2024-01-15 14:30',
+        lastUpdate: '2025-01-15 14:30',
         status: 'active',
         type: 'Теплосчётчик'
     },
@@ -12,7 +12,7 @@ const metersData = [
         id: 'M002',
         location: 'пр. Мира, 78',
         currentReading: '32.4',
-        lastUpdate: '2024-01-15 13:45',
+        lastUpdate: '2025-01-15 13:45',
         status: 'warning',
         type: 'Расходомер'
     },
@@ -20,7 +20,7 @@ const metersData = [
         id: 'M003',
         location: 'ул. Гагарина, 23',
         currentReading: '28.9',
-        lastUpdate: '2024-01-15 15:00',
+        lastUpdate: '2025-01-15 15:00',
         status: 'inactive',
         type: 'Теплосчётчик'
     }
@@ -83,7 +83,7 @@ const emergencies = [
 const equipmentData = [
     {
         name: 'Котел №1',
-        details: 'Последняя проверка: 15.01.2024',
+        details: 'Последняя проверка: 15.01.2025',
         status: 'normal'
     },
     {
@@ -93,7 +93,7 @@ const equipmentData = [
     },
     {
         name: 'Теплообменник',
-        details: 'В работе с 10.01.2024',
+        details: 'В работе с 10.01.2025',
         status: 'normal'
     }
 ];
@@ -204,7 +204,7 @@ function getPresetByStatus(status) {
 const requestsData = [
     {
         id: 1,
-        date: '2024-01-10',
+        date: '2025-01-10',
         type: 'emergency',
         typeName: 'Аварийная',
         address: 'ул. Ленина, 45',
@@ -218,13 +218,13 @@ const requestsData = [
         priority: 'high',
         createdBy: 'Диспетчер',
         comments: [
-            { date: '2024-01-10 10:30', author: 'Диспетчер', text: 'Заявка создана на основании звонка жильца.' },
-            { date: '2024-01-10 11:15', author: 'Бригада №1', text: 'Выехали на место.' }
+            { date: '2025-01-10 10:30', author: 'Диспетчер', text: 'Заявка создана на основании звонка жильца.' },
+            { date: '2025-01-10 11:15', author: 'Бригада №1', text: 'Выехали на место.' }
         ]
     },
     {
         id: 2,
-        date: '2024-01-12',
+        date: '2025-01-12',
         type: 'maintenance',
         typeName: 'Плановые работы',
         address: 'пр. Мира, 78',
@@ -238,12 +238,12 @@ const requestsData = [
         priority: 'medium',
         createdBy: 'Инженер',
         comments: [
-            { date: '2024-01-12 09:00', author: 'Инженер', text: 'Заявка создана согласно графику плановых работ.' }
+            { date: '2025-01-12 09:00', author: 'Инженер', text: 'Заявка создана согласно графику плановых работ.' }
         ]
     },
     {
         id: 3,
-        date: '2024-01-08',
+        date: '2025-01-08',
         type: 'connection',
         typeName: 'Подключение',
         address: 'ул. Гагарина, 12',
@@ -257,14 +257,14 @@ const requestsData = [
         priority: 'low',
         createdBy: 'Менеджер',
         comments: [
-            { date: '2024-01-08 14:00', author: 'Менеджер', text: 'Заявка создана на основании договора №123.' },
-            { date: '2024-01-09 10:30', author: 'Бригада №2', text: 'Работы по подключению выполнены.' },
-            { date: '2024-01-09 15:45', author: 'Инженер', text: 'Проверка выполнена. Подключение успешно.' }
+            { date: '2025-01-08 14:00', author: 'Менеджер', text: 'Заявка создана на основании договора №123.' },
+            { date: '2025-01-09 10:30', author: 'Бригада №2', text: 'Работы по подключению выполнены.' },
+            { date: '2025-01-09 15:45', author: 'Инженер', text: 'Проверка выполнена. Подключение успешно.' }
         ]
     },
     {
         id: 4,
-        date: '2024-01-15',
+        date: '2025-01-15',
         type: 'consultation',
         typeName: 'Консультация',
         address: 'ул. Строителей, 5',
@@ -278,13 +278,13 @@ const requestsData = [
         priority: 'low',
         createdBy: 'Оператор',
         comments: [
-            { date: '2024-01-15 11:20', author: 'Оператор', text: 'Заявка создана на основании обращения абонента.' },
-            { date: '2024-01-15 12:30', author: 'Оператор', text: 'Абонент отменил заявку. Вопрос решен по телефону.' }
+            { date: '2025-01-15 11:20', author: 'Оператор', text: 'Заявка создана на основании обращения абонента.' },
+            { date: '2025-01-15 12:30', author: 'Оператор', text: 'Абонент отменил заявку. Вопрос решен по телефону.' }
         ]
     },
     {
         id: 5,
-        date: '2024-01-16',
+        date: '2025-01-16',
         type: 'emergency',
         typeName: 'Аварийная',
         address: 'ул. Пушкина, 22',
@@ -298,7 +298,7 @@ const requestsData = [
         priority: 'high',
         createdBy: 'Диспетчер',
         comments: [
-            { date: '2024-01-16 08:15', author: 'Диспетчер', text: 'Заявка создана на основании множественных звонков жильцов.' }
+            { date: '2025-01-16 08:15', author: 'Диспетчер', text: 'Заявка создана на основании множественных звонков жильцов.' }
         ]
     }
 ];
@@ -426,7 +426,7 @@ function showRequestDetails(request) {
             <div class="detail-value">${request.createdBy}</div>
         </div>
         <div class="detail-group">
-            <div class="detail-label">История комментариев:</div>
+            <div class="detail-label">История:</div>
             <div class="detail-value comments-history">
                 ${request.comments.map(comment => `
                     <div class="comment">
